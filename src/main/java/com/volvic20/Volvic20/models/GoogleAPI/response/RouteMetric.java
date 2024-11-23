@@ -1,6 +1,7 @@
-package com.volvic20.Volvic20.models.GoogleAPI.payload.response;
+package com.volvic20.Volvic20.models.GoogleAPI.response;
 
-public class AggregatedRouteMetric {
+// Clase RouteMetrics
+public class RouteMetric {
     private int performedShipmentCount;
     private String travelDuration;
     private String waitDuration;
@@ -10,7 +11,7 @@ public class AggregatedRouteMetric {
     private String totalDuration;
     private int travelDistanceMeters;
 
-    public AggregatedRouteMetric(int performedShipmentCount, String travelDuration, String waitDuration, String delayDuration, String breakDuration, String visitDuration, String totalDuration, int travelDistanceMeters) {
+    public RouteMetric(int performedShipmentCount, String travelDuration, String waitDuration, String delayDuration, String breakDuration, String visitDuration, String totalDuration, int travelDistanceMeters) {
         this.performedShipmentCount = performedShipmentCount;
         this.travelDuration = travelDuration;
         this.waitDuration = waitDuration;

@@ -1,7 +1,7 @@
 package com.volvic20.Volvic20.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.volvic20.Volvic20.models.GoogleAPI.payload.response.DataGoogle;
+import com.volvic20.Volvic20.models.GoogleAPI.response.DataGoogle;
 import com.volvic20.Volvic20.service.RoutingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

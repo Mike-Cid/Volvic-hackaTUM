@@ -1,4 +1,4 @@
-package com.volvic20.Volvic20.models.GoogleAPI.payload.response;
+package com.volvic20.Volvic20.models.GoogleAPI.response;
 
 public class Visit {
     private boolean isPickup;

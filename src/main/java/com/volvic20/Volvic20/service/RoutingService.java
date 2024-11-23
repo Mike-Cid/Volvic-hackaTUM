@@ -3,7 +3,7 @@ package com.volvic20.Volvic20.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.volvic20.Volvic20.models.GoogleAPI.payload.*;
-import com.volvic20.Volvic20.models.GoogleAPI.payload.response.DataGoogle;
+import com.volvic20.Volvic20.models.GoogleAPI.response.DataGoogle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
