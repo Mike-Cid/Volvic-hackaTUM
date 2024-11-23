@@ -1,16 +1,16 @@
-package com.volvic20.Volvic20.models;
+package com.volvic20.Volvic20.models.TSystemsAPI;
 
 import java.util.List;
 
 public class Scenario {
     private String id;
-    private int startTime;
-    private int endTime;
+    private String startTime;
+    private String endTime;
     private String status;
     private List<Vehicle> vehicles;
     private List<Customer> customers;
 
-    public Scenario(String id, int startTime, int endTime, String status,
+    public Scenario(String id, String startTime, String endTime, String status,
                     List<Vehicle> vehicles, List<Customer> customers) {
         this.id = id;
         this.startTime = startTime;
@@ -18,6 +18,18 @@ public class Scenario {
         this.status = status;
         this.vehicles = vehicles;
         this.customers = customers;
+    }
+
+    @Override
+    public String toString() {
+        return "Scenario{" +
+                "id='" + id + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", status='" + status + '\'' +
+                ", vehicles=" + vehicles +
+                ", customers=" + customers +
+                '}';
     }
 
     public String getId() {
@@ -28,19 +40,19 @@ public class Scenario {
         this.id = id;
     }
 
-    public int getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
