@@ -47,4 +47,5 @@ public class Customer {
     public void setAwaitingService(boolean awaitingService) {
         this.awaitingService = awaitingService;
     }
+
 }

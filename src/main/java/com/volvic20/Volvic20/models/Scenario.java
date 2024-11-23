@@ -67,4 +67,5 @@ public class Scenario {
     public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
+
 }

@@ -72,4 +72,5 @@ public class AlgorithmService {
     private double calculateDistance(float x1, float y1, float x2, float y2) {
         return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
+
 }

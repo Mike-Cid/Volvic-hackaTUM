@@ -60,4 +60,5 @@ public class Vehicle {
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
+
 }
