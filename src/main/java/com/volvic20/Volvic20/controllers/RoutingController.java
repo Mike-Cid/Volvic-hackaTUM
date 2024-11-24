@@ -13,6 +13,6 @@ public class RoutingController {
     RoutingService routingService;
     @PostMapping("/routing")
     public DataGoogle routing() throws JsonProcessingException {
-        return routingService.getData();
+        return routingService.getData(null);
     }
 }

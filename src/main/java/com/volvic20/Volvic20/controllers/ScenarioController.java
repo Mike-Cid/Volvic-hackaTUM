@@ -14,27 +14,22 @@ import java.util.List;
 @RequestMapping("/our_api")
 public class ScenarioController {
 
-    private String id;
-    private String customerId;
 
     @Autowired
     private FetchDataService fetchDataService;
 
+    private Matchings matchings;
+
     @PostMapping("/create")
     public String createScenario() {
         Scenario res = fetchDataService.kickStart();
-        id = res.getVehicles().get(0).getId();
-        customerId = res.getCustomers().get(0).getId();
-        System.out.println(customerId);
-        System.out.println(id);
+        this.matchings = fetchDataService.getMatchings(fetchDataService.generatePayload(res));
         return res.getId();
     }
 
-    @PostMapping("/update")
-    public Matchings updateScenario(@RequestBody String scenarioId) {
-        System.out.println(customerId);
-        System.out.println(id);
-        return fetchDataService.matchRide(scenarioId, new Matchings(List.of(new Matching(id,customerId))));
+    @PostMapping("/update/{scenarioId}")
+    public Matchings updateScenario(@PathVariable String scenarioId) {
+        return fetchDataService.matchRide(scenarioId,matchings);
     }
 
     /*@GetMapping("/stats")
