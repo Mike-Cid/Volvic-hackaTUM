@@ -1,17 +1,17 @@
 package com.volvic20.Volvic20.models.GoogleAPI.payload;
 
 public class LoadLimit {
-    private EquipmentRackStorage equipmentRackStorage;
+    private WeightKg weightKg;
 
-    public LoadLimit(EquipmentRackStorage equipmentRackStorage) {
-        this.equipmentRackStorage = equipmentRackStorage;
+    public LoadLimit(WeightKg weightKg) {
+        this.weightKg = weightKg;
     }
 
-    public EquipmentRackStorage getEquipmentRackStorage() {
-        return equipmentRackStorage;
+    public WeightKg getWeightKg() {
+        return weightKg;
     }
 
-    public void setEquipmentRackStorage(EquipmentRackStorage equipmentRackStorage) {
-        this.equipmentRackStorage = equipmentRackStorage;
+    public void setWeightKg(WeightKg equipmentRackStorage) {
+        this.weightKg = equipmentRackStorage;
     }
 }
