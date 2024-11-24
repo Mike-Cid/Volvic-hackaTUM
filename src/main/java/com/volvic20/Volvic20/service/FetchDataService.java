@@ -9,6 +9,7 @@ import com.volvic20.Volvic20.models.TSystemsAPI.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.*;
 
@@ -21,9 +22,12 @@ public class FetchDataService {
     @Autowired
     private RoutingService routingService;
 
+    Map<Integer, String> relateIdCustomer = new HashMap<>();
+    Map<Integer, String> relateIdVehicle = new HashMap<>();
+
     private Scenario fetchScenario() {
         // Llamar backend :8080 post crear scenario, retorna Scenario
-        String url = "http://localhost:8080/scenario/create";
+        String url = "http://34.107.87.109:8080/scenario/create";
         return webClient.post()
                 .uri(url)
                 .bodyValue(new ScenarioInitializer(new Random().nextInt(50), new Random().nextInt(50)))
@@ -33,14 +37,26 @@ public class FetchDataService {
     }
 
     public Scenario kickStart(){
-        String url = "http://localhost:8090/Scenarios/initialize_scenario";
+        String url = "http://34.107.87.109:8090/Scenarios/initialize_scenario";
         Scenario scenario = fetchScenario();
-        System.out.println(scenario.toString());
+        List<Customer> customers = scenario.getCustomers();
+        List<com.volvic20.Volvic20.models.TSystemsAPI.Vehicle> vehicles = scenario.getVehicles();
+        for(int i=0;i<scenario.getCustomers().size();i++){
+            relateIdCustomer.put(i,customers.get(i).getId());
+        }
+
+        for(int i=0;i<scenario.getVehicles().size();i++){
+            relateIdVehicle.put(i,vehicles.get(i).getId());
+        }
+
         webClient.post()
                 .uri(url)
                 .bodyValue(scenario)
                 .retrieve()
-                .bodyToMono(Void.class) // No response body expected
+                .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),
+                        response -> response.bodyToMono(String.class)
+                                .flatMap(body -> Mono.error(new RuntimeException("Error en la solicitud: " + body))))
+                .bodyToMono(String.class)
                 .block();
         return scenario;
     }
@@ -50,9 +66,12 @@ public class FetchDataService {
         List<Route> routes = dg.getRoutes();
         Set<Matching> machingsSet = new HashSet<>();
         for(Route route: routes){
-            String vehicleIndex = String.valueOf(route.getVehicleIndex());
+            if(route.getVisits() == null)
+                continue;
+            int vehicleIndex = route.getVehicleIndex();
             for(Visit visit: route.getVisits()){
-                machingsSet.add(new Matching(vehicleIndex,String.valueOf(visit.getShipmentIndex())));
+                if(visit.isPickup())
+                    machingsSet.add(new Matching(relateIdVehicle.get(vehicleIndex),relateIdCustomer.get(visit.getShipmentIndex())));
             }
         }
 
@@ -62,7 +81,7 @@ public class FetchDataService {
 
     public Matchings matchRide(String scenarioId, Matchings vehicles){
         System.out.println(vehicles.toString());
-        String url = "http://localhost:8090/Scenarios/update_scenario/"+scenarioId;
+        String url = "http://34.107.87.109:8090/Scenarios/update_scenario/"+scenarioId;
             webClient.put()
                     .uri(url)
                     .bodyValue(vehicles)
@@ -83,9 +102,9 @@ public class FetchDataService {
         List<Vehicle> vehicles = new ArrayList<>();
         for(com.volvic20.Volvic20.models.TSystemsAPI.Vehicle vehicle: scenario.getVehicles())
         {
-            vehicles.add(new Vehicle(new ArrivalLocation(vehicle.getCoordX(),vehicle.getCoordY()),1,new LoadLimit(new WeightKg(1))));
+            vehicles.add(new Vehicle(new ArrivalLocation(vehicle.getCoordX(),vehicle.getCoordY()),1,new LoadLimit(new WeightKg_Vehicle(1))));
         }
 
-        return new Payload(new Model(shipments,vehicles,scenario.getStartTime(),scenario.getEndTime()));
+        return new Payload(new Model(shipments,vehicles));
     }
 }

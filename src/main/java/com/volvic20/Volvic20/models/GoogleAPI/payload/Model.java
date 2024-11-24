@@ -5,14 +5,10 @@ import java.util.List;
 public class Model {
     private List<Shipment> shipments;
     private List<Vehicle> vehicles;
-    private String globalStartTime;
-    private String globalEndTime;
 
-    public Model(List<Shipment> shipments, List<Vehicle> vehicles, String globalStartTime, String globalEndTime) {
+    public Model(List<Shipment> shipments, List<Vehicle> vehicles) {
         this.shipments = shipments;
         this.vehicles = vehicles;
-        this.globalStartTime = globalStartTime;
-        this.globalEndTime = globalEndTime;
     }
 
     public List<Shipment> getShipments() {
@@ -29,22 +25,6 @@ public class Model {
 
     public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
-    }
-
-    public String getGlobalStartTime() {
-        return globalStartTime;
-    }
-
-    public void setGlobalStartTime(String globalStartTime) {
-        this.globalStartTime = globalStartTime;
-    }
-
-    public String getGlobalEndTime() {
-        return globalEndTime;
-    }
-
-    public void setGlobalEndTime(String globalEndTime) {
-        this.globalEndTime = globalEndTime;
     }
 }
 

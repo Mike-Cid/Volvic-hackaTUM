@@ -1,5 +1,6 @@
 package com.volvic20.Volvic20.controllers;
 
+import com.volvic20.Volvic20.models.GoogleAPI.payload.Payload;
 import com.volvic20.Volvic20.models.TSystemsAPI.Matchings;
 import com.volvic20.Volvic20.models.TSystemsAPI.Matching;
 import com.volvic20.Volvic20.models.TSystemsAPI.Scenario;
@@ -7,6 +8,7 @@ import com.volvic20.Volvic20.service.FetchDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 
@@ -23,7 +25,8 @@ public class ScenarioController {
     @PostMapping("/create")
     public String createScenario() {
         Scenario res = fetchDataService.kickStart();
-        this.matchings = fetchDataService.getMatchings(fetchDataService.generatePayload(res));
+        Payload pay = fetchDataService.generatePayload(res);
+        this.matchings = fetchDataService.getMatchings(pay);
         return res.getId();
     }
 
@@ -31,7 +34,6 @@ public class ScenarioController {
     public Matchings updateScenario(@PathVariable String scenarioId) {
         return fetchDataService.matchRide(scenarioId,matchings);
     }
-
     /*@GetMapping("/stats")
     public
 
