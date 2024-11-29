@@ -27,7 +27,7 @@ public class FetchDataService {
 
     private Scenario fetchScenario() {
         // Llamar backend :8080 post crear scenario, retorna Scenario
-        String url = "http://34.107.87.109:8080/scenario/create";
+        String url = "http://localhost:8080/scenario/create";
         return webClient.post()
                 .uri(url)
                 .bodyValue(new ScenarioInitializer(new Random().nextInt(50), new Random().nextInt(50)))
@@ -37,7 +37,7 @@ public class FetchDataService {
     }
 
     public Scenario kickStart(){
-        String url = "http://34.107.87.109:8090/Scenarios/initialize_scenario";
+        String url = "http://localhost:8090/Scenarios/initialize_scenario";
         Scenario scenario = fetchScenario();
         List<Customer> customers = scenario.getCustomers();
         List<com.volvic20.Volvic20.models.TSystemsAPI.Vehicle> vehicles = scenario.getVehicles();
@@ -85,7 +85,7 @@ public class FetchDataService {
 
     public Matchings matchRide(String scenarioId, Matchings vehicles){
         System.out.println(vehicles.toString());
-        String url = "http://34.107.87.109:8090/Scenarios/update_scenario/"+scenarioId;
+        String url = "http://localhost:8090/Scenarios/update_scenario/"+scenarioId;
             webClient.put()
                     .uri(url)
                     .bodyValue(vehicles)

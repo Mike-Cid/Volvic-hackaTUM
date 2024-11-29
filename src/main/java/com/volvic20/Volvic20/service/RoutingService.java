@@ -24,9 +24,12 @@ public class RoutingService {
             String payloadJson = objectMapper.writeValueAsString(payload);
             System.out.println("Payload: " + payloadJson);
 
-            String bearerToken = "ya29.a0AeDClZCqzFVTDcZrhmVn9khfboKElPIbp4-uxaK3WARccZXeKE-kUPjVatGSyD8RwA5pix7Yri3cUEcE28Cy2yfesTH8UYwl4XdqhJtu52cscmT3rHMxoOu9F-fHuzuMZ1pHwVD9EW46ik0bhLbZskhGQKWOH15YRMZf-i7_y1BirRShE-maeZLioo28_qk6CQ5DESDyZ4OadZwcR4wiKcmprYxPn1X9NoUK1hgQ2hk7DgvwoKQbu_dd88Z1DhR-Atw28Zp8ATnpyFzSWZ9-0li2nHSMgA9KtScJ6PUCsH24-sHbxj-RarqCoJiMDxxeKrmWY7sZSjP-8uxaAZhfNd0uGjP2xbG7PA6zmt4uLZw_O91ArBNE45U-SbS67uZB1ztKSHpttO0aQCo96mbIiGowtXEW3wUUI_21DAaCgYKAcYSARESFQHGX2Mi6elV9RUn2uOZqLqwWFXCig0429";
+            String bearerToken = "ya29.a0AeDClZBwPjGsMwNOYADXEuMFW0U3Lcy22iLYGZ9h55e5M3rVX5joW89HK3OHLGkX-JoBCcuti6lsg-_8OmARiQKcCr4KYBnFN5RP14fbnRssfIYuJBYrK" +
+                    "l5bLpRrLB-fN59KZm5s51_meK4-3CGsbwACG3zWlZDMrhq08FQlJJr9Qxa4PYo_5lw0U5CR0OSLm_jWH-lvUPJzw_Gf3B_KgckSlClVeaa7fM0XlB9O1a4Zr8auezo1x7SYrrBonRY2TX" +
+                    "4Yc9NPA3ZPt_xee4-sgNsAOYonwNYfeDFHSVJI-cix96US91FdUYigqfJJJ5KLpLmDp7H8VSREftg4-SUKmyuqy6xE7zBFSy5luz2wU2cUvvAauHFM-SxayqnbTPH9RBHsN58ufWIV_aMwEoQQm" +
+                    "VTq5dMRuelzdksgaCgYKAVYSARESFQHGX2MiSWxeuC5E3Q4YMdgtuXl35w0427";
             return webClient.post()
-                    .uri("https://routeoptimization.googleapis.com/v1/projects/hackathum24mun-26:optimizeTours")
+                    .uri("https://routeoptimization.googleapis.com/v1/projects/hassio-stt-408500:optimizeTours")
                     .headers(headers -> headers.setBearerAuth(bearerToken))
                     .bodyValue(payload)
                     .retrieve()
