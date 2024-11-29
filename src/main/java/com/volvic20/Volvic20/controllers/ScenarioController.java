@@ -20,23 +20,11 @@ public class ScenarioController {
     @Autowired
     private FetchDataService fetchDataService;
 
-    private Matchings matchings;
-
     @PostMapping("/create")
-    public String createScenario() {
+    public Matchings createScenario() {
         Scenario res = fetchDataService.kickStart();
         Payload pay = fetchDataService.generatePayload(res);
-        this.matchings = fetchDataService.getMatchings(pay);
-        return res.getId();
+        return fetchDataService.getMatchings(pay);
     }
 
-    @PostMapping("/update/{scenarioId}")
-    public Matchings updateScenario(@PathVariable String scenarioId) {
-        return fetchDataService.matchRide(scenarioId,matchings);
-    }
-    /*@GetMapping("/stats")
-    public
-
-
-     */
 }

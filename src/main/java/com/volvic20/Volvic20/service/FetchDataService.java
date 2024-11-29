@@ -22,8 +22,8 @@ public class FetchDataService {
     @Autowired
     private RoutingService routingService;
 
-    Map<Integer, String> relateIdCustomer = new HashMap<>();
-    Map<Integer, String> relateIdVehicle = new HashMap<>();
+    Map<Integer, Customer> relateIdCustomer = new HashMap<>();
+    Map<Integer, com.volvic20.Volvic20.models.TSystemsAPI.Vehicle> relateIdVehicle = new HashMap<>();
 
     private Scenario fetchScenario() {
         // Llamar backend :8080 post crear scenario, retorna Scenario
@@ -42,11 +42,11 @@ public class FetchDataService {
         List<Customer> customers = scenario.getCustomers();
         List<com.volvic20.Volvic20.models.TSystemsAPI.Vehicle> vehicles = scenario.getVehicles();
         for(int i=0;i<scenario.getCustomers().size();i++){
-            relateIdCustomer.put(i,customers.get(i).getId());
+            relateIdCustomer.put(i,scenario.getCustomers().get(i));
         }
 
         for(int i=0;i<scenario.getVehicles().size();i++){
-            relateIdVehicle.put(i,vehicles.get(i).getId());
+            relateIdVehicle.put(i,vehicles.get(i));
         }
 
         webClient.post()
@@ -69,9 +69,13 @@ public class FetchDataService {
             if(route.getVisits() == null)
                 continue;
             int vehicleIndex = route.getVehicleIndex();
-            for(Visit visit: route.getVisits()){
-                if(visit.isPickup())
-                    machingsSet.add(new Matching(relateIdVehicle.get(vehicleIndex),relateIdCustomer.get(visit.getShipmentIndex())));
+            for(Visit visit: route.getVisits()) {
+                if (visit.isPickup()) {
+                    ArrivalLocation pointVehicle = new ArrivalLocation(relateIdVehicle.get(vehicleIndex).getCoordX(), relateIdVehicle.get(vehicleIndex).getCoordY());
+                    ArrivalLocation pointCustomer = new ArrivalLocation(relateIdCustomer.get(visit.getShipmentIndex()).getCoordX(), relateIdCustomer.get(visit.getShipmentIndex()).getCoordY());
+                    ArrivalLocation pointCustomerDestination = new ArrivalLocation(relateIdCustomer.get(visit.getShipmentIndex()).getDestinationX(), relateIdCustomer.get(visit.getShipmentIndex()).getDestinationY());
+                    machingsSet.add(new Matching(relateIdVehicle.get(vehicleIndex).getId(), relateIdCustomer.get(visit.getShipmentIndex()).getId(), pointVehicle,pointCustomer,pointCustomerDestination));
+                }
             }
         }
 
